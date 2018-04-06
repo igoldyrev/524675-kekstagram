@@ -13,11 +13,24 @@ var indexPhotos = [];
 for (var i = 0; i < countPhotos; i++) {
   indexPhotos.push(getRandomNumber(countPhotos));
 };
-var randomLikes = getRandomGap(15, 200);
-var randomDescription = getRandomNumber(DESCRIPTIONS.length);
-var randomComments = [];
+var randomCommentsIndex = [];
 
-for (var j = 0; j < 2; j++) {
+for (var j = 0; j < getRandomGap(1, 3); j++) {
   var randomComment = getRandomNumber(COMMENTS.length);
-  randomComments.push(randomComment);
+  randomCommentsIndex.push(randomComment);
+}
+var randomComments = [COMMENTS[randomCommentsIndex[0]], COMMENTS[randomCommentsIndex[1]]];
+if (randomComments[1] === undefined) {
+  randomComments.pop(randomComments[1]);
+}
+
+var photos = [];
+for (var k = 0; k < 25; k++) {
+  var photoItem = {
+    url: 'photos/' + indexPhotos[k] + '.jpg',
+    likes: getRandomGap(15, 200),
+    comments: randomComments,
+    description: DESCRIPTIONS[getRandomNumber(DESCRIPTIONS.length)],
+  };
+  photos.push(photoItem);
 }
