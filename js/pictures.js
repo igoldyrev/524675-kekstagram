@@ -33,4 +33,24 @@ for (var k = 0; k < 25; k++) {
     description: DESCRIPTIONS[getRandomNumber(DESCRIPTIONS.length)],
   };
   photos.push(photoItem);
+};
+
+var renderPhotos = function (photo, template) {
+  var photoElement = template.cloneNode(true);
+  photoElement.getElementsByClassName('picture__img').src = photo.url;
+  photoElement.getElementsByClassName('.picture__stat--likes').textContent = photo.likes;
+  photoElement.getElementsByClassName('.picture__stat--comments').textContent = photo.comments;
+  return photoElement;
+};
+
+console.log(renderPhotos(photos))
+
+var photosList = document.querySelector('.pictures');
+var photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
+
+var fragment = document.createDocumentFragment();
+
+for (var l = 0; l < photos.length; l++) {
+   fragment.appendChild(renderPhotos(photos[l], photoTemplate));
 }
+photosList.appendChild(fragment);
