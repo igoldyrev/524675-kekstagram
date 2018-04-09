@@ -35,22 +35,19 @@ for (var k = 0; k < 25; k++) {
   photos.push(photoItem);
 };
 
-var renderPhotos = function (photo, template) {
-  var photoElement = template.cloneNode(true);
-  photoElement.getElementsByClassName('picture__img').src = photo.url;
-  photoElement.getElementsByClassName('.picture__stat--likes').textContent = photo.likes;
-  photoElement.getElementsByClassName('.picture__stat--comments').textContent = photo.comments;
-  return photoElement;
+var renderPhotoCards = function (arr) {
+  var photoTemplateNode = document.querySelector('#picture').content.querySelector('.picture__link');
+  var picturesListNode = document.querySelector('.pictures');
+
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < arr.length; i++) {
+    var photoElement = photoTemplateNode.cloneNode(true);
+    photoElement.querySelector('.picture__img').src = arr[i].url;
+    photoElement.querySelector('.picture__stat--comments').textContent = arr[i].comments.length;
+    photoElement.querySelector('.picture__stat--likes').textContent = arr[i].likes;
+    fragment.appendChild(photoElement);
+  }
+  picturesListNode.appendChild(fragment);
 };
 
-console.log(renderPhotos(photos))
-
-var photosList = document.querySelector('.pictures');
-var photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
-var fragment = document.createDocumentFragment();
-
-for (var l = 0; l < photos.length; l++) {
-   fragment.appendChild(renderPhotos(photos[l], photoTemplate));
-}
-photosList.appendChild(fragment);
+renderPhotoCards(photos);
