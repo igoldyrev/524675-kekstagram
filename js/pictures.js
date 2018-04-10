@@ -3,33 +3,33 @@ var COMMENTS = ['Всё отлично!', 'В целом всё неплохо. 
 var DESCRIPTIONS = ['Тестим новую камеру!', 'Затусили с друзьями на море', 'Как же круто тут кормят', 'Отдыхаем...', 'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......', 'Вот это тачка!'];
 
 var countPhotos = 25;
-var getRandomNumber = function (number) {
-  return Math.floor(Math.random() * number);
-};
-var getRandomGap = function (min, max) {
+var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 };
-var indexPhotos = [];
-for (var i = 0; i < countPhotos; i++) {
-  indexPhotos.push(getRandomNumber(countPhotos));
-}
-var randomCommentsIndex = [];
 
-for (var j = 0; j < getRandomGap(1, 3); j++) {
-  var randomComment = getRandomNumber(COMMENTS.length);
-  randomCommentsIndex.push(randomComment);
+var urlPhotos = [];
+for (var i = 1; i <= countPhotos; i++) {
+  urlPhotos.push('photos/' + i + '.jpg');
 }
-var randomComments = [COMMENTS[randomCommentsIndex[0]], COMMENTS[randomCommentsIndex[1]]];
-if (randomComments[1] === '') {
-  randomComments.pop(randomComments[1]);
+function sortRandom() {
+  return Math.random() - 0.5;
 }
+urlPhotos.sort(sortRandom);
+
+var generateComments = function (numberComments) {
+  var comments = [];
+  for (var j = 1; j <= numberComments; j++) {
+    comments.push(COMMENTS[getRandomNumber(0, COMMENTS.length - 1)]);
+  }
+  return comments;
+};
 
 var photos = [];
 for (var k = 0; k < 25; k++) {
   var photoItem = {
-    url: 'photos/' + indexPhotos[k] + '.jpg',
-    likes: getRandomGap(15, 200),
-    comments: randomComments,
+    url: urlPhotos[k],
+    likes: getRandomNumber(15, 200),
+    comments: generateComments(getRandomNumber(1, 3)),
     description: DESCRIPTIONS[getRandomNumber(DESCRIPTIONS.length)],
   };
   photos.push(photoItem);
@@ -50,7 +50,8 @@ var renderPhotoCards = function (arr) {
   picturesList.appendChild(fragment);
 };
 
-var showBigPicture = function (arrElem) {
+var showBigPicture;
+showBigPicture = function (arrElem) {
   var bigPicture = document.querySelector('.big-picture');
   bigPicture.classList.remove('hidden');
   bigPicture.querySelector('.big-picture__img').src = arrElem.url;
@@ -64,7 +65,7 @@ var showBigPicture = function (arrElem) {
     var commentUserPic = document.querySelector('.social__picture').cloneNode(true);
     var textElem = document.createTextNode(arrElem.comments[m]);
 
-    commentUserPic.src = 'img/avatar-' + getRandomGap(1, 6) + '.svg';
+    commentUserPic.src = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
     commentElem.appendChild(commentUserPic);
     commentElem.appendChild(textElem);
     fragment.appendChild(commentElem);
