@@ -1,6 +1,7 @@
 'use strict';
 var COMMENTS = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.', 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.', 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 var DESCRIPTIONS = ['Тестим новую камеру!', 'Затусили с друзьями на море', 'Как же круто тут кормят', 'Отдыхаем...', 'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......', 'Вот это тачка!'];
+var ESC_KEYCODE = 27;
 
 var countPhotos = 25;
 var getRandomNumber = function (min, max) {
@@ -54,8 +55,7 @@ var renderPhotoCards = function (arr) {
   picturesList.appendChild(fragment);
 };
 
-var showBigPicture;
-showBigPicture = function (arrElem) {
+var showBigPicture = function (arrElem) {
   var bigPicture = document.querySelector('.big-picture');
   bigPicture.classList.remove('hidden');
   bigPicture.querySelector('.big-picture__img').src = arrElem.url;
@@ -79,5 +79,26 @@ showBigPicture = function (arrElem) {
   document.querySelector('.social__comment-loadmore').classList.add('visually-hidden');
 };
 
+var inputPhotoUpload = document.getElementById('upload-file');
+var inputPhotoClose = document.querySelector('.img-upload__cancel');
+
+var onFormEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    onFormUploadHide();
+  }
+};
+
+var onFormUploadShow = function () {
+  document.querySelector('.img-upload__overlay').classList.remove('hidden');
+  document.addEventListener('keydown', onFormEscPress);
+};
+var onFormUploadHide = function () {
+  document.querySelector('.img-upload__overlay').classList.add('hidden');
+  document.removeEventListener('keydown', onFormEscPress);
+};
+
+inputPhotoUpload.addEventListener('change', onFormUploadShow);
+inputPhotoClose.addEventListener('click', onFormUploadHide);
+
 renderPhotoCards(photos);
-showBigPicture(photos[0]);
+//showBigPicture(photos[0]);
