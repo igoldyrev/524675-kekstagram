@@ -4,22 +4,26 @@ var DESCRIPTIONS = ['Тестим новую камеру!', 'Затусили �
 
 var countPhotos = 25;
 var getRandomNumber = function (min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
+  return Math.round(Math.random() * (max - min) + min);
+};
+
+var getRandomElenent = function (array) {
+  return getRandomNumber(0, array.length);
 };
 
 var urlPhotos = [];
 for (var i = 1; i <= countPhotos; i++) {
   urlPhotos.push('photos/' + i + '.jpg');
 }
-function sortRandom() {
+var sortRandom = function () {
   return Math.random() - 0.5;
-}
+};
 urlPhotos.sort(sortRandom);
 
 var generateComments = function (numberComments) {
   var comments = [];
   for (var j = 1; j <= numberComments; j++) {
-    comments.push(COMMENTS[getRandomNumber(0, COMMENTS.length - 1)]);
+    comments.push(COMMENTS[getRandomElenent(COMMENTS)]);
   }
   return comments;
 };
@@ -29,7 +33,7 @@ for (var k = 0; k < 25; k++) {
   var photoItem = {
     url: urlPhotos[k],
     likes: getRandomNumber(15, 200),
-    comments: generateComments(getRandomNumber(1, 3)),
+    comments: generateComments(getRandomNumber(1, 2)),
     description: DESCRIPTIONS[getRandomNumber(DESCRIPTIONS.length)],
   };
   photos.push(photoItem);
