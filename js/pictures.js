@@ -2,6 +2,7 @@
 var COMMENTS = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.', 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.', 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 var DESCRIPTIONS = ['Тестим новую камеру!', 'Затусили с друзьями на море', 'Как же круто тут кормят', 'Отдыхаем...', 'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......', 'Вот это тачка!'];
 var ESC_KEYCODE = 27;
+var DEFAULT_SCALE = 100;
 
 var countPhotos = 25;
 var getRandomNumber = function (min, max) {
@@ -81,6 +82,11 @@ var showBigPicture = function (arrElem) {
 
 var inputPhotoUpload = document.getElementById('upload-file');
 var inputPhotoClose = document.querySelector('.img-upload__cancel');
+var resizeControlMinus = document.querySelector('.resize__control--minus');
+var resizeControlPlus = document.querySelector('.resize__control--plus');
+var resizeControlValue = document.querySelector('.resize__control--value');
+var imageUploadPreview = document.querySelector('.img-upload__preview');
+resizeControlValue.value = DEFAULT_SCALE;
 
 var onFormEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
@@ -88,6 +94,10 @@ var onFormEscPress = function (evt) {
   }
 };
 
+var imageScale = function () {
+  var scale = resizeControlValue.value / 100;
+  imageUploadPreview.style.transform = 'scale(' + scale + ')';
+};
 var onFormUploadShow = function () {
   document.querySelector('.img-upload__overlay').classList.remove('hidden');
   document.addEventListener('keydown', onFormEscPress);
@@ -96,9 +106,20 @@ var onFormUploadHide = function () {
   document.querySelector('.img-upload__overlay').classList.add('hidden');
   document.removeEventListener('keydown', onFormEscPress);
 };
+var onResizeControlMinusClick = function () {
+  resizeControlValue.value = resizeControlValue.value - 25;
+  imageScale();
+};
+var onResizeControlPlusClick = function () {
+  resizeControlValue.value = parseInt(resizeControlValue.value, 10) + 25;
+  imageScale();
+};
 
 inputPhotoUpload.addEventListener('change', onFormUploadShow);
 inputPhotoClose.addEventListener('click', onFormUploadHide);
+resizeControlMinus.addEventListener('click', onResizeControlMinusClick);
+resizeControlPlus.addEventListener('click', onResizeControlPlusClick);
+
 
 renderPhotoCards(photos);
 //showBigPicture(photos[0]);
