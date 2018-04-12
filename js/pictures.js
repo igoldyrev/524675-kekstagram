@@ -120,6 +120,62 @@ inputPhotoClose.addEventListener('click', onFormUploadHide);
 resizeControlMinus.addEventListener('click', onResizeControlMinusClick);
 resizeControlPlus.addEventListener('click', onResizeControlPlusClick);
 
+var photoEffectOrigiginal = document.getElementById('effect-none');
+var photoEffectChrome = document.getElementById('effect-chrome');
+var photoEffectSepia = document.getElementById('effect-sepia');
+var photoEffectMarvin = document.getElementById('effect-marvin');
+var photoEffectPhobos = document.getElementById('effect-phobos');
+var photoEffectHeat = document.getElementById('effect-heat');
+
+var onEffectOriginalClick = function () {
+  imageUploadPreview.classList.remove('effects__preview--chrome');
+  imageUploadPreview.classList.remove('effects__preview--sepia');
+  imageUploadPreview.classList.remove('effects__preview--marvin');
+  imageUploadPreview.classList.remove('effects__preview--phobos');
+  imageUploadPreview.classList.remove('effects__preview--heat');
+};
+var onEffectChromeClick = function () {
+  imageUploadPreview.classList.remove('effects__preview--sepia');
+  imageUploadPreview.classList.remove('effects__preview--marvin');
+  imageUploadPreview.classList.remove('effects__preview--phobos');
+  imageUploadPreview.classList.remove('effects__preview--heat');
+  imageUploadPreview.classList.add('effects__preview--chrome');
+};
+var onEffectSepiaClick = function () {
+  imageUploadPreview.classList.remove('effects__preview--chrome');
+  imageUploadPreview.classList.remove('effects__preview--marvin');
+  imageUploadPreview.classList.remove('effects__preview--phobos');
+  imageUploadPreview.classList.remove('effects__preview--heat');
+  imageUploadPreview.classList.add('effects__preview--sepia');
+};
+var onEffectMarvinClick = function () {
+  imageUploadPreview.classList.remove('effects__preview--chrome');
+  imageUploadPreview.classList.remove('effects__preview--sepia');
+  imageUploadPreview.classList.remove('effects__preview--phobos');
+  imageUploadPreview.classList.remove('effects__preview--heat');
+  imageUploadPreview.classList.add('effects__preview--marvin');
+};
+var onEffectPhobosClick = function () {
+  imageUploadPreview.classList.remove('effects__preview--chrome');
+  imageUploadPreview.classList.remove('effects__preview--sepia');
+  imageUploadPreview.classList.remove('effects__preview--marvin');
+  imageUploadPreview.classList.remove('effects__preview--heat');
+  imageUploadPreview.classList.add('effects__preview--phobos');
+};
+var onEffectHeatClick = function () {
+  imageUploadPreview.classList.remove('effects__preview--chrome');
+  imageUploadPreview.classList.remove('effects__preview--sepia');
+  imageUploadPreview.classList.remove('effects__preview--marvin');
+  imageUploadPreview.classList.remove('effects__preview--phobos');
+  imageUploadPreview.classList.add('effects__preview--heat');
+};
+
+photoEffectChrome.addEventListener('click', onEffectChromeClick);
+photoEffectOrigiginal.addEventListener('click', onEffectOriginalClick);
+photoEffectSepia.addEventListener('click', onEffectSepiaClick);
+photoEffectMarvin.addEventListener('click', onEffectMarvinClick);
+photoEffectPhobos.addEventListener('click', onEffectPhobosClick);
+photoEffectHeat.addEventListener('click', onEffectHeatClick);
 
 renderPhotoCards(photos);
 //showBigPicture(photos[0]);
