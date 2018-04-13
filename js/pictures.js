@@ -2,42 +2,33 @@
 var COMMENTS = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.', 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.', 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 var DESCRIPTIONS = ['Тестим новую камеру!', 'Затусили с друзьями на море', 'Как же круто тут кормят', 'Отдыхаем...', 'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......', 'Вот это тачка!'];
 var ESC_KEYCODE = 27;
-
 var countPhotos = 25;
+
 var getRandomNumber = function (min, max) {
   return Math.round(Math.random() * (max - min) + min);
 };
 
-var getRandomElenent = function (array) {
-  return getRandomNumber(0, array.length);
+var photos = [];
+var PhotoItem = function (n) {
+  this.url = 'photos/' + (n + 1) + '.jpg';
+  this.likes = getRandomNumber(15, 200);
+  this.comments = generateComments(getRandomNumber(1, COMMENTS.length));
+  this.description = DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length)];
 };
 
-var urlPhotos = [];
-for (var i = 1; i <= countPhotos; i++) {
-  urlPhotos.push('photos/' + i + '.jpg');
-}
-var sortRandom = function () {
-  return Math.random() - 0.5;
-};
-urlPhotos.sort(sortRandom);
-
-var generateComments = function (numberComments) {
+var generateComments = function (n) {
   var comments = [];
-  for (var j = 1; j <= numberComments; j++) {
-    comments.push(COMMENTS[getRandomElenent(COMMENTS)]);
+  var commentsCopy = COMMENTS.slice();
+  for (var i = 0; i < n; i++) {
+    var a = getRandomNumber(0, commentsCopy.length);
+    comments.push(commentsCopy[a]);
+    commentsCopy.splice(a, 1);
   }
   return comments;
 };
 
-var photos = [];
-for (var k = 0; k < 25; k++) {
-  var photoItem = {
-    url: urlPhotos[k],
-    likes: getRandomNumber(15, 200),
-    comments: generateComments(getRandomNumber(1, 2)),
-    description: DESCRIPTIONS[getRandomNumber(DESCRIPTIONS.length)],
-  };
-  photos.push(photoItem);
+for (var i = 0; i < countPhotos; i++) {
+  photos.push(new PhotoItem(i));
 }
 
 var renderPhotoCards = function (arr) {
@@ -120,63 +111,6 @@ resizeControlPlus.addEventListener('click', function () {
 
 inputPhotoUpload.addEventListener('change', onFormUploadShow);
 inputPhotoClose.addEventListener('click', onFormUploadHide);
-
-var photoEffectOrigiginal = document.getElementById('effect-none');
-var photoEffectChrome = document.getElementById('effect-chrome');
-var photoEffectSepia = document.getElementById('effect-sepia');
-var photoEffectMarvin = document.getElementById('effect-marvin');
-var photoEffectPhobos = document.getElementById('effect-phobos');
-var photoEffectHeat = document.getElementById('effect-heat');
-
-var onEffectOriginalClick = function () {
-  imageUploadPreview.classList.remove('effects__preview--chrome');
-  imageUploadPreview.classList.remove('effects__preview--sepia');
-  imageUploadPreview.classList.remove('effects__preview--marvin');
-  imageUploadPreview.classList.remove('effects__preview--phobos');
-  imageUploadPreview.classList.remove('effects__preview--heat');
-};
-var onEffectChromeClick = function () {
-  imageUploadPreview.classList.remove('effects__preview--sepia');
-  imageUploadPreview.classList.remove('effects__preview--marvin');
-  imageUploadPreview.classList.remove('effects__preview--phobos');
-  imageUploadPreview.classList.remove('effects__preview--heat');
-  imageUploadPreview.classList.add('effects__preview--chrome');
-};
-var onEffectSepiaClick = function () {
-  imageUploadPreview.classList.remove('effects__preview--chrome');
-  imageUploadPreview.classList.remove('effects__preview--marvin');
-  imageUploadPreview.classList.remove('effects__preview--phobos');
-  imageUploadPreview.classList.remove('effects__preview--heat');
-  imageUploadPreview.classList.add('effects__preview--sepia');
-};
-var onEffectMarvinClick = function () {
-  imageUploadPreview.classList.remove('effects__preview--chrome');
-  imageUploadPreview.classList.remove('effects__preview--sepia');
-  imageUploadPreview.classList.remove('effects__preview--phobos');
-  imageUploadPreview.classList.remove('effects__preview--heat');
-  imageUploadPreview.classList.add('effects__preview--marvin');
-};
-var onEffectPhobosClick = function () {
-  imageUploadPreview.classList.remove('effects__preview--chrome');
-  imageUploadPreview.classList.remove('effects__preview--sepia');
-  imageUploadPreview.classList.remove('effects__preview--marvin');
-  imageUploadPreview.classList.remove('effects__preview--heat');
-  imageUploadPreview.classList.add('effects__preview--phobos');
-};
-var onEffectHeatClick = function () {
-  imageUploadPreview.classList.remove('effects__preview--chrome');
-  imageUploadPreview.classList.remove('effects__preview--sepia');
-  imageUploadPreview.classList.remove('effects__preview--marvin');
-  imageUploadPreview.classList.remove('effects__preview--phobos');
-  imageUploadPreview.classList.add('effects__preview--heat');
-};
-
-photoEffectChrome.addEventListener('click', onEffectChromeClick);
-photoEffectOrigiginal.addEventListener('click', onEffectOriginalClick);
-photoEffectSepia.addEventListener('click', onEffectSepiaClick);
-photoEffectMarvin.addEventListener('click', onEffectMarvinClick);
-photoEffectPhobos.addEventListener('click', onEffectPhobosClick);
-photoEffectHeat.addEventListener('click', onEffectHeatClick);
 
 renderPhotoCards(photos);
 //showBigPicture(photos[0]);
