@@ -31,17 +31,21 @@ for (var i = 0; i < countPhotos; i++) {
   photos.push(new PhotoItem(i));
 }
 
-var renderPhotoCards = function (arr) {
-  var photoTemplate = document.querySelector('#picture').content.querySelector('.picture__link');
-  var picturesList = document.querySelector('.pictures');
+var photoTemplate = document.querySelector('#picture').content.querySelector('.picture__link');
+var renderPhoto = function (array) {
+  var photoElement = photoTemplate.cloneNode(true);
+  photoElement.querySelector('.picture__img').src = array.url;
+  photoElement.querySelector('.picture__stat--comments').textContent = array.comments.length;
+  photoElement.querySelector('.picture__stat--likes').textContent = array.likes;
+  return photoElement;
+};
 
+var renderPhotoCards = function () {
+  var picturesList = document.querySelector('.pictures');
   var fragment = document.createDocumentFragment();
-  for (var l = 0; l < arr.length; l++) {
-    var photoElement = photoTemplate.cloneNode(true);
-    photoElement.querySelector('.picture__img').src = arr[l].url;
-    photoElement.querySelector('.picture__stat--comments').textContent = arr[l].comments.length;
-    photoElement.querySelector('.picture__stat--likes').textContent = arr[l].likes;
-    fragment.appendChild(photoElement);
+
+  for (var j = 0; j < countPhotos; j++) {
+    fragment.appendChild(renderPhoto(photos[j]));
   }
   picturesList.appendChild(fragment);
 };
