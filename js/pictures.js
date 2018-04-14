@@ -82,7 +82,7 @@ pictureLinks.forEach(function (picture, num) {
     bigPicture.querySelector('.likes-count').textContent = photos[num].likes;
     bigPicture.querySelector('.comments-count').textContent = photos[num].comments.length;
 
-    for (var j = commentsContainer.children.length; j > 0; j--) {
+    for (var m = commentsContainer.children.length; m > 0; m--) {
       commentsContainer.innerHTML = '';
     }
 
@@ -192,4 +192,3 @@ resizeControlPlus.addEventListener('click', resizeImg);
 
 var scalePin = imageUploadElement.querySelector('.scale__pin');
 var scaleLevel = imageUploadElement.querySelector('.scale__level');
-var scaleValue = imageUploadElement.querySelector('.scale__value');
