@@ -139,20 +139,12 @@ var onEffectsRadioClick = function (evt) {
     resizeControl.style.zIndex = 1;
   };
 
-  var effectId = evt.target.id.slice(7);
+  var effectId = evt.target.id.replace('effect-', '');
   if (effectId === 'none') {
     imageUploadImg.removeAttribute('class');
     imageSlider.classList.add('hidden');
-  } else if (effectId === 'chrome') {
-    setEffect('chrome');
-  } else if (effectId === 'sepia') {
-    setEffect('sepia');
-  } else if (effectId === 'marvin') {
-    setEffect('marvin');
-  } else if (effectId === 'phobos') {
-    setEffect('phobos');
-  } else if (effectId === 'heat') {
-    setEffect('heat');
+  } else {
+    setEffect(effectId);
   }
 };
 
