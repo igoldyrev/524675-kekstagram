@@ -81,7 +81,7 @@ pictureLinks.forEach(function (picture, num) {
     bigPicture.querySelector('.comments-count').textContent = photos[num].comments.length;
 
     for (var j = commentsContainer.children.length; j > 0; j--) {
-      commentsContainer.removeChild(commentsContainer.lastElementChild);
+      commentsContainer.innerHTML = '';
     }
 
     for (var k = 0; (k < photos[num].comments.length) && (k < 2); k++) {
