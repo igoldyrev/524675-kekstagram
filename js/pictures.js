@@ -121,13 +121,6 @@ uploadFile.addEventListener('change', onUploadFileClick);
 uploadCancel.addEventListener('click', onUploadCancelClick);
 
 var onEffectsRadioClick = function (evt) {
-  var none = imageUploadEffects.querySelector('#effect-none');
-  var chrome = imageUploadEffects.querySelector('#effect-chrome');
-  var sepia = imageUploadEffects.querySelector('#effect-sepia');
-  var marvin = imageUploadEffects.querySelector('#effect-marvin');
-  var phobos = imageUploadEffects.querySelector('#effect-phobos');
-  var heat = imageUploadEffects.querySelector('#effect-heat');
-
   var setEffect = function (eff) {
     imageUploadImg.className = '';
     var effect = 'effects__preview--' + eff;
@@ -136,26 +129,20 @@ var onEffectsRadioClick = function (evt) {
     resizeControl.style.zIndex = 1;
   };
 
-  switch (evt.target) {
-    case none:
-      imageUploadImg.removeAttribute('class');
-      imageSlider.classList.add('hidden');
-      break;
-    case chrome:
-      setEffect('chrome');
-      break;
-    case sepia:
-      setEffect('sepia');
-      break;
-    case marvin:
-      setEffect('marvin');
-      break;
-    case phobos:
-      setEffect('phobos');
-      break;
-    case heat:
-      setEffect('heat');
-      break;
+  var effectId = evt.target.id.slice(7);
+  if (effectId === 'none') {
+    imageUploadImg.removeAttribute('class');
+    imageSlider.classList.add('hidden');
+  } else if (effectId === 'chrome') {
+    setEffect('chrome');
+  } else if (effectId === 'sepia') {
+    setEffect('sepia');
+  } else if (effectId === 'marvin') {
+    setEffect('marvin');
+  } else if (effectId === 'phobos') {
+    setEffect('phobos');
+  } else if (effectId === 'heat') {
+    setEffect('heat');
   }
 };
 
@@ -192,3 +179,7 @@ var resizeImg = function (evt) {
 
 resizeControlMinus.addEventListener('click', resizeImg);
 resizeControlPlus.addEventListener('click', resizeImg);
+
+var scalePin = imageUploadElement.querySelector('.scale__pin');
+var scaleLevel = imageUploadElement.querySelector('.scale__level');
+var scaleValue = imageUploadElement.querySelector('.scale__value');
