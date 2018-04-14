@@ -74,6 +74,8 @@ var renderComments = function (l, m) {
 pictureLinks.forEach(function (picture, num) {
   picture.addEventListener('click', function () {
     bigPicture.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+    document.addEventListener('keydown', onEscKeyPress);
 
     bigPicture.querySelector('.big-picture__img img').src = photos[num].url;
     bigPicture.querySelector('.social__caption').textContent = photos[num].description;
@@ -92,6 +94,14 @@ pictureLinks.forEach(function (picture, num) {
 
 var onBigPictureCloseClick = function () {
   bigPicture.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+};
+
+var onEscKeyPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    onBigPictureCloseClick();
+    onUploadCancelClick();
+  }
 };
 
 bigPictureClose.addEventListener('click', onBigPictureCloseClick);
@@ -109,7 +119,7 @@ var onUploadFileClick = function () {
   imageSlider.classList.add('hidden');
   scalePin.style.left = '100%';
   scaleLevel.style.width = '100%';
-
+  document.addEventListener('keydown', onEscKeyPress);
 };
 
 var onUploadCancelClick = function () {
