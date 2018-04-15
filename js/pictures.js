@@ -184,3 +184,60 @@ resizeControlPlus.addEventListener('click', resizeImg);
 
 var scalePin = imageUploadElement.querySelector('.scale__pin');
 var scaleLevel = imageUploadElement.querySelector('.scale__level');
+
+document.querySelector('.img-upload__submit').addEventListener('click', onInputTagValidation);
+var inputTagUpload = document.querySelector('.text__hashtags');
+
+var validateTags = function (string) {
+  var errors = [];
+  var tags = string.split(' ');
+  tags.forEach(function (tag) {
+    tag = tag.trim();
+    if (tag[0] !== '#') {
+      errors.push('Теги должны начинаться с #');
+    } else if (tag.length <= 1) {
+      errors.push('Теги должны содержать не менее 2 символов');
+    } else if (tag.length > 20) {
+      errors.push('Теги должны содержать не более 20 символов');
+    } else if (checkForDuplicate(tags, tag)) {
+      errors.push('Теги не должны повторяться. Регистр не учитывается.');
+    }
+  });
+  if (tags.length > 5) {
+    errors.push('Максимальное количество тегов - 5');
+  }
+  return errors;
+};
+
+var checkForDuplicate = function (list, item) {
+  var counter = 0;
+  list.forEach(function (listItem) {
+    if (listItem.toLowerCase() === item.toLowerCase()) {
+      counter++;
+    }
+  });
+  return counter > 1 ? true : false;
+};
+
+var onInputTagValidation = function () {
+  var input = document.querySelector('.text__hashtags');
+  var errorList = validateTags(input.value);
+  if (errorList.length > 0) {
+    input.setCustomValidity(errorList.toString());
+    input.style.border = '2px solid red';
+  } else {
+    input.setCustomValidity('');
+  }
+};
+
+var onInputTagsFocusLost = function () {
+  document.addEventListener('keydown', onEscKeyPress);
+};
+
+var onInputTagsFocus = function () {
+  document.removeEventListener('keydown', onEscKeyPress);
+};
+
+inputTagUpload.addEventListener('focus', onInputTagsFocus);
+inputTagUpload.addEventListener('blur', onInputTagValidation);
+inputTagUpload.addEventListener('blur', onInputTagsFocusLost);
