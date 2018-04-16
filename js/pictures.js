@@ -188,10 +188,10 @@ var scaleLevel = imageUploadElement.querySelector('.scale__level');
 document.querySelector('.img-upload__submit').addEventListener('click', onInputTagValidation);
 var inputTagUpload = document.querySelector('.text__hashtags');
 var inputTextDescription = document.querySelector('.text__description');
-
 var validateTags = function (string) {
   var errors = [];
-  var tags = string.split(' ');
+  var stringSmallCase = string.toString().toLowerCase();
+  var tags = stringSmallCase.split(' ');
   tags.forEach(function (tag) {
     tag = tag.trim();
     if (tag[0] !== '#') {
@@ -200,24 +200,19 @@ var validateTags = function (string) {
       errors.push('Теги должны содержать не менее 2 символов');
     } else if (tag.length > 20) {
       errors.push('Теги должны содержать не более 20 символов');
-    } else if (checkForDuplicate(tags, tag)) {
-      errors.push('Теги не должны повторяться. Регистр не учитывается.');
     }
   });
   if (tags.length > 5) {
     errors.push('Максимальное количество тегов - 5');
   }
-  return errors;
-};
-
-var checkForDuplicate = function (list, item) {
-  var counter = 0;
-  list.forEach(function (listItem) {
-    if (listItem.toLowerCase() === item.toLowerCase()) {
-      counter++;
+  var tag;
+  while (tags.length) {
+    tag = tags.pop();
+    if (tags.indexOf(tag) !== -1) {
+      errors.push('Теги не должны совпадать. Регистр не учитывается.');
     }
-  });
-  return counter > 1 ? true : false;
+  }
+  return errors;
 };
 
 var onInputTagValidation = function () {
