@@ -187,6 +187,7 @@ var scaleLevel = imageUploadElement.querySelector('.scale__level');
 
 document.querySelector('.img-upload__submit').addEventListener('click', onInputTagValidation);
 var inputTagUpload = document.querySelector('.text__hashtags');
+var inputTextDescription = document.querySelector('.text__description');
 
 var validateTags = function (string) {
   var errors = [];
@@ -230,14 +231,16 @@ var onInputTagValidation = function () {
   }
 };
 
-var onInputTagsFocusLost = function () {
+var onInputFocusLost = function () {
   document.addEventListener('keydown', onEscKeyPress);
 };
 
-var onInputTagsFocus = function () {
+var onInputFocus = function () {
   document.removeEventListener('keydown', onEscKeyPress);
 };
 
-inputTagUpload.addEventListener('focus', onInputTagsFocus);
+inputTagUpload.addEventListener('focus', onInputFocus);
 inputTagUpload.addEventListener('blur', onInputTagValidation);
-inputTagUpload.addEventListener('blur', onInputTagsFocusLost);
+inputTagUpload.addEventListener('blur', onInputFocusLost);
+inputTextDescription.addEventListener('focus', onInputFocus);
+inputTextDescription.addEventListener('blur', onInputFocusLost);
