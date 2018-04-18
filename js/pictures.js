@@ -112,6 +112,9 @@ var imageUploadElement = document.querySelector('.img-upload__overlay');
 var imageUploadEffects = imageUploadElement.querySelector('.effects__list');
 var imageUploadImg = imageUploadElement.querySelector('.img-upload__preview img');
 var imageSlider = imageUploadElement.querySelector('.img-upload__scale');
+var scalePin = imageUploadElement.querySelector('.scale__pin');
+var scaleLevel = imageUploadElement.querySelector('.scale__level');
+var scaleValue = imageUploadElement.querySelector('.scale__value');
 
 var onUploadFileClick = function () {
   imageUploadElement.classList.remove('hidden');
@@ -182,9 +185,6 @@ var resizeImg = function (evt) {
 resizeControlMinus.addEventListener('click', resizeImg);
 resizeControlPlus.addEventListener('click', resizeImg);
 
-var scalePin = imageUploadElement.querySelector('.scale__pin');
-var scaleLevel = imageUploadElement.querySelector('.scale__level');
-
 document.querySelector('.img-upload__submit').addEventListener('click', onInputTagValidation);
 var inputTagUpload = document.querySelector('.text__hashtags');
 var inputTextDescription = document.querySelector('.text__description');
@@ -239,3 +239,83 @@ inputTagUpload.addEventListener('blur', onInputTagValidation);
 inputTagUpload.addEventListener('blur', onInputFocusLost);
 inputTextDescription.addEventListener('focus', onInputFocus);
 inputTextDescription.addEventListener('blur', onInputFocusLost);
+
+
+var setSaturation = function (position) {
+  var filterName = imageUploadImg.classList.value;
+  filterName = filterName.split('--');
+  filterName = filterName[1];
+
+  var result;
+
+  switch (filterName) {
+    case 'chrome':
+      result = 'grayscale(' + (position / 100) + ')';
+      break;
+    case 'sepia':
+      result = 'sepia(' + (position / 100) + ')';
+      break;
+    case 'marvin':
+      result = 'invert(' + position + '%)';
+      break;
+    case 'phobos':
+      result = 'blur(' + (position * 3 / 100) + 'px)';
+      break;
+    case 'heat':
+      result = 'brightness(' + ((position * 2 / 100) + 1) + ')';
+      break;
+  }
+
+  imageUploadImg.style.filter = result;
+  scaleValue.value = position;
+};
+
+
+var SLIDER_WIDTH = 495;
+var SCALE_MAX = 100;
+var onScalePinMouseDown = function (evt) {
+  evt.preventDefault();
+
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+
+  var pinPosition = Number.parseInt(scalePin.style.left, 10);
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY,
+    };
+
+    var diff = shift.x / SLIDER_WIDTH * SCALE_MAX;
+
+    diff = (pinPosition - Math.round(diff));
+
+    if (diff < 0) {
+      diff = 0;
+    } else if (diff > SCALE_MAX) {
+      diff = SCALE_MAX;
+    }
+
+    scalePin.style.left = diff + '%';
+    scaleLevel.style.width = diff + '%';
+
+    setSaturation(diff);
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+};
+
+scalePin.addEventListener('mousedown', onScalePinMouseDown);
