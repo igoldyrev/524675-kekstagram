@@ -1,6 +1,6 @@
 'use strict';
 
-window.util = (function () {
+window.common = (function () {
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
 
@@ -17,6 +17,8 @@ window.util = (function () {
     },
     isGetRandom: function (min, max) {
       return Math.round(Math.random() * (max - min) + min);
-    }
+    },
+    imageUploadElement: document.querySelector('.img-upload__overlay'),
+    imageUploadImg: document.querySelector('.img-upload__preview img')
   };
 })();

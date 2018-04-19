@@ -15,7 +15,7 @@
 
     var imgElement = document.createElement('img');
     imgElement.classList.add('social__picture');
-    imgElement.src = 'img/avatar-' + window.util.isGetRandom(1, 6) + '.svg';
+    imgElement.src = 'img/avatar-' + window.common.isGetRandom(1, 6) + '.svg';
     imgElement.alt = 'Аватар комментатора фотографии';
     imgElement.width = '35';
     imgElement.height = '35';
@@ -52,7 +52,7 @@
   };
 
   var onEscKeyPress = function (evt) {
-    window.util.isEscEvent(evt, onBigPictureCloseClick);
+    window.common.isEscEvent(evt, onBigPictureCloseClick);
   };
 
   bigPictureClose.addEventListener('click', onBigPictureCloseClick);

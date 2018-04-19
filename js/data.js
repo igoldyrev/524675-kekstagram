@@ -7,16 +7,16 @@
   window.photos = [];
   var PhotoItem = function (n) {
     this.url = 'photos/' + (n + 1) + '.jpg';
-    this.likes = window.util.isGetRandom(15, 200);
-    this.comments = generateComments(window.util.isGetRandom(1, COMMENTS.length));
-    this.description = DESCRIPTIONS[window.util.isGetRandom(0, DESCRIPTIONS.length)];
+    this.likes = window.common.isGetRandom(15, 200);
+    this.comments = generateComments(window.common.isGetRandom(1, COMMENTS.length));
+    this.description = DESCRIPTIONS[window.common.isGetRandom(0, DESCRIPTIONS.length)];
   };
 
   var generateComments = function (n) {
     var comments = [];
     var commentsCopy = COMMENTS.slice();
     for (var i = 0; i < n; i++) {
-      var a = window.util.isGetRandom(0, commentsCopy.length);
+      var a = window.common.isGetRandom(0, commentsCopy.length);
       comments.push(commentsCopy[a]);
       commentsCopy.splice(a, 1);
     }
