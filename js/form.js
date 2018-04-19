@@ -1,5 +1,7 @@
 'use strict';
 (function () {
+  var SLIDER_WIDTH = 495;
+  var SCALE_MAX = 100;
   var uploadFile = document.querySelector('#upload-file');
   var uploadCancel = document.querySelector('#upload-cancel');
   var imageUploadElement = document.querySelector('.img-upload__overlay');
@@ -9,6 +11,8 @@
   var scalePin = imageUploadElement.querySelector('.scale__pin');
   var scaleLevel = imageUploadElement.querySelector('.scale__level');
   var scaleValue = imageUploadElement.querySelector('.scale__value');
+  var inputTagUpload = document.querySelector('.text__hashtags');
+  var inputTextDescription = document.querySelector('.text__description');
 
   var onUploadFileClick = function () {
     imageUploadElement.classList.remove('hidden');
@@ -84,8 +88,6 @@
   resizeControlPlus.addEventListener('click', resizeImg);
 
   document.querySelector('.img-upload__submit').addEventListener('click', onInputTagValidation);
-  var inputTagUpload = document.querySelector('.text__hashtags');
-  var inputTextDescription = document.querySelector('.text__description');
   var validateTags = function (string) {
     var errors = [];
     var stringSmallCase = string.toString().toLowerCase();
@@ -167,10 +169,6 @@
     imageUploadImg.style.filter = result;
     scaleValue.value = position;
   };
-
-
-  var SLIDER_WIDTH = 495;
-  var SCALE_MAX = 100;
   var onScalePinMouseDown = function (evt) {
     evt.preventDefault();
 
