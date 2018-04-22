@@ -9,6 +9,7 @@
   document.querySelector('.social__comment-loadmore').classList.add('visually-hidden');
 
   var renderComments = function (l, m) {
+    var socialCaption = document.querySelector('.social__caption');
     var commentElement = document.createElement('li');
     commentElement.classList.add('social__comment', 'social__comment--text');
 
@@ -21,6 +22,7 @@
     commentElement.appendChild(imgElement);
     var textElement = document.createTextNode(window.photos[m].comments[l]);
     commentElement.appendChild(textElement);
+    socialCaption.textContent = window.photos[m].comments[1];
     return commentElement;
   };
 
