@@ -31,6 +31,6 @@
   resizeControlMinus.addEventListener('click', resizeImg);
   resizeControlPlus.addEventListener('click', resizeImg);
   window.resize = {
-    resizeControlValue
+    resizeControlValue: resizeControlValue
   };
 })();
