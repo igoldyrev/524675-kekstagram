@@ -14,11 +14,13 @@
   };
 
   var onSuccessLoad = function (photos) {
+    window.photos = photos;
     var fragment = document.createDocumentFragment();
     for (var j = 0; j < countPhotos; j++) {
       fragment.appendChild(renderPhoto(photos[j]));
     }
     picturesList.appendChild(fragment);
+    window.initBigPicture();
   };
 
   var onErrorLoad = function (errorMessage) {

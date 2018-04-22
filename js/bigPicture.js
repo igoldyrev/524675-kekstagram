@@ -1,7 +1,6 @@
 'use strict';
 (function () {
   var bigPicture = document.querySelector('.big-picture');
-  var pictureLinks = document.querySelectorAll('.picture__link');
   var bigPictureClose = bigPicture.querySelector('#picture-cancel');
   var commentsContainer = document.querySelector('.social__comments');
   var COUNT_COMMENTS = 2;
@@ -25,27 +24,29 @@
     return commentElement;
   };
 
-  pictureLinks.forEach(function (picture, num) {
-    picture.addEventListener('click', function () {
-      bigPicture.classList.remove('hidden');
-      document.body.classList.add('modal-open');
-      document.addEventListener('keydown', onEscKeyPress);
+  window.initBigPicture = function () {
+    var pictureLinks = document.querySelectorAll('.picture__link');
+    pictureLinks.forEach(function (picture, num) {
+      picture.addEventListener('click', function () {
+        bigPicture.classList.remove('hidden');
+        document.body.classList.add('modal-open');
+        document.addEventListener('keydown', onEscKeyPress);
 
-      bigPicture.querySelector('.big-picture__img img').src = window.photos[num].url;
-      bigPicture.querySelector('.social__caption').textContent = window.photos[num].description;
-      bigPicture.querySelector('.likes-count').textContent = window.photos[num].likes;
-      bigPicture.querySelector('.comments-count').textContent = window.photos[num].comments.length;
+        bigPicture.querySelector('.big-picture__img img').src = window.photos[num].url;
+        bigPicture.querySelector('.social__caption').textContent = window.photos[num].description;
+        bigPicture.querySelector('.likes-count').textContent = window.photos[num].likes;
+        bigPicture.querySelector('.comments-count').textContent = window.photos[num].comments.length;
 
-      for (var m = commentsContainer.children.length; m > 0; m--) {
-        commentsContainer.innerHTML = '';
-      }
+        for (var m = commentsContainer.children.length; m > 0; m--) {
+          commentsContainer.innerHTML = '';
+        }
 
-      for (var k = 0; (k < window.photos[num].comments.length) && (k < COUNT_COMMENTS); k++) {
-        commentsContainer.appendChild(renderComments(k, num));
-      }
+        for (var k = 0; (k < window.photos[num].comments.length) && (k < COUNT_COMMENTS); k++) {
+          commentsContainer.appendChild(renderComments(k, num));
+        }
+      });
     });
-  });
-
+  };
   var onBigPictureCloseClick = function () {
     bigPicture.classList.add('hidden');
     document.body.classList.remove('modal-open');
