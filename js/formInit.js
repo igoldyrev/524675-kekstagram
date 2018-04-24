@@ -61,7 +61,7 @@
   uploadCancel.addEventListener('click', onUploadCancelClick);
 
 
-  window.form = {
+  window.formInit = {
     onUploadCancelClick: onUploadCancelClick
   };
 })();

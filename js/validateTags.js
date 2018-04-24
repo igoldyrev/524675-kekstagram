@@ -41,7 +41,7 @@
   };
 
   var onEscKeyPress = function (evt) {
-    window.common.isEscEvent(evt, window.form.onUploadCancelClick);
+    window.common.isEscEvent(evt, window.formInit.onUploadCancelClick);
   };
 
   var onInputFocusLost = function () {
