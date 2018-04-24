@@ -26,6 +26,9 @@
     window.common.imageUploadElement.classList.remove('hidden');
     imageSlider.classList.add('hidden');
     document.addEventListener('keydown', onEscKeyPress);
+    scalePin.style.left = '100%';
+    scaleLevel.style.width = '100%';
+    window.resize.resizeControlValue.value = '100%';
   };
 
   var onUploadCancelClick = function () {
