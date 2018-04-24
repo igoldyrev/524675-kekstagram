@@ -52,8 +52,12 @@
   var onEscKeyPress = function (evt) {
     window.common.isEscEvent(evt, onUploadCancelClick);
   };
+  var onEnterKeyPress = function (evt) {
+    window.common.isEnterEvent(evt, onUploadFileClick);
+  };
 
   uploadFile.addEventListener('change', onUploadFileClick);
+  uploadFile.addEventListener('keydown', onEnterKeyPress);
   uploadCancel.addEventListener('click', onUploadCancelClick);
 
 
