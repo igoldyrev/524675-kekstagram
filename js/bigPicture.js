@@ -52,6 +52,7 @@
   var onBigPictureCloseClick = function () {
     bigPicture.classList.add('hidden');
     document.body.classList.remove('modal-open');
+    document.removeEventListener('keydown', onEscKeyPress);
   };
 
   var onEscKeyPress = function (evt) {
