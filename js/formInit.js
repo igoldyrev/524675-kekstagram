@@ -19,11 +19,18 @@
     document.querySelector('#effect-none').checked = true;
   };
 
+  var clearAllFormListeners = function () {
+    window.formEffects.removeListenersFormEffects();
+    window.resize.removeListenersResize();
+    window.validateTags.removeListenersValidateTags();
+  };
+
   imageUploadForm.addEventListener('submit', function (evt) {
-    window.backend.isUploadData(new FormData(imageUploadForm), function (response) {
+    window.backend.isUploadData(new FormData(imageUploadForm), function () {
       window.common.imageUploadElement.classList.add('hidden');
       uploadFile.value = '';
       clearFormInputs();
+      clearAllFormListeners();
     }, function () {
       var errorMessage = document.querySelector('.img-upload__message--error');
       var errorLink = document.querySelector('.error__link');
@@ -41,12 +48,16 @@
     imageSlider.classList.add('hidden');
     document.addEventListener('keydown', onEscKeyPress);
     clearFormInputs();
+    window.formEffects.addListenersFormEffects();
+    window.resize.addListenersResize();
+    window.validateTags.addListenersValidateTags();
   };
 
   var onUploadCancelClick = function () {
     window.common.imageUploadElement.classList.add('hidden');
     uploadFile.value = '';
     clearFormInputs();
+    clearAllFormListeners();
   };
 
   var onEscKeyPress = function (evt) {

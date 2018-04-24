@@ -28,9 +28,15 @@
     }
   };
 
-  resizeControlMinus.addEventListener('click', resizeImg);
-  resizeControlPlus.addEventListener('click', resizeImg);
   window.resize = {
-    resizeControlValue: resizeControlValue
+    resizeControlValue: resizeControlValue,
+    addListenersResize: function () {
+      resizeControlMinus.addEventListener('click', resizeImg);
+      resizeControlPlus.addEventListener('click', resizeImg);
+    },
+    removeListenersResize: function () {
+      resizeControlMinus.removeEventListener('click', resizeImg);
+      resizeControlPlus.removeEventListener('click', resizeImg);
+    }
   };
 })();

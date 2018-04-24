@@ -31,7 +31,6 @@
       setSaturation(100);
     }
   };
-  imageUploadEffects.addEventListener('click', onEffectsRadioClick);
 
   var setSaturation = function (position) {
     var filterName = window.common.imageUploadImg.classList.value.split('--')[1];
@@ -105,4 +104,13 @@
   };
 
   scalePin.addEventListener('mousedown', onScalePinMouseDown);
+
+  window.formEffects = {
+    addListenersFormEffects: function () {
+      imageUploadEffects.addEventListener('click', onEffectsRadioClick);
+    },
+    removeListenersFormEffects: function () {
+      imageUploadEffects.removeEventListener('click', onEffectsRadioClick);
+    }
+  };
 })();

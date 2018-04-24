@@ -53,14 +53,23 @@
   };
 
   document.querySelector('.img-upload__submit').addEventListener('click', onInputTagValidation);
-  inputTagUpload.addEventListener('focus', onInputFocus);
-  inputTagUpload.addEventListener('blur', onInputTagValidation);
-  inputTagUpload.addEventListener('blur', onInputFocusLost);
-  inputTextDescription.addEventListener('focus', onInputFocus);
-  inputTextDescription.addEventListener('blur', onInputFocusLost);
 
   window.validateTags = {
     inputTagUpload: inputTagUpload,
-    inputTextDescription: inputTextDescription
+    inputTextDescription: inputTextDescription,
+    addListenersValidateTags: function () {
+      inputTagUpload.addEventListener('focus', onInputFocus);
+      inputTagUpload.addEventListener('blur', onInputTagValidation);
+      inputTagUpload.addEventListener('blur', onInputFocusLost);
+      inputTextDescription.addEventListener('focus', onInputFocus);
+      inputTextDescription.addEventListener('blur', onInputFocusLost);
+    },
+    removeListenersValidateTags: function () {
+      inputTagUpload.removeEventListener('focus', onInputFocus);
+      inputTagUpload.removeEventListener('blur', onInputTagValidation);
+      inputTagUpload.removeEventListener('blur', onInputFocusLost);
+      inputTextDescription.removeEventListener('focus', onInputFocus);
+      inputTextDescription.removeEventListener('blur', onInputFocusLost);
+    }
   };
 })();
