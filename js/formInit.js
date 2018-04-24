@@ -12,6 +12,12 @@
     scalePin.style.left = '100%';
     scaleLevel.style.width = '100%';
     window.resize.resizeControlValue.value = '100%';
+    window.common.imageUploadImg.style.transform = '';
+    window.common.imageUploadImg.style.filter = '';
+    window.common.imageUploadImg.className = '';
+    window.validateTags.inputTagUpload.value = '';
+    window.validateTags.inputTextDescription.value = '';
+    document.querySelector('#effect-none').checked = true;
   };
 
   imageUploadForm.addEventListener('submit', function (evt) {
@@ -26,9 +32,7 @@
     window.common.imageUploadElement.classList.remove('hidden');
     imageSlider.classList.add('hidden');
     document.addEventListener('keydown', onEscKeyPress);
-    scalePin.style.left = '100%';
-    scaleLevel.style.width = '100%';
-    window.resize.resizeControlValue.value = '100%';
+    clearFormInputs();
   };
 
   var onUploadCancelClick = function () {

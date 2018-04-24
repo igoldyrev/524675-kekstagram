@@ -58,4 +58,9 @@
   inputTagUpload.addEventListener('blur', onInputFocusLost);
   inputTextDescription.addEventListener('focus', onInputFocus);
   inputTextDescription.addEventListener('blur', onInputFocusLost);
+
+  window.validateTags = {
+    inputTagUpload: inputTagUpload,
+    inputTextDescription: inputTextDescription
+  };
 })();
