@@ -8,7 +8,6 @@
   var imageUploadForm = document.querySelector('.img-upload__form');
 
   var clearFormInputs = function () {
-    uploadFile.value = '';
     scalePin.style.left = '100%';
     scaleLevel.style.width = '100%';
     window.resize.resizeControlValue.value = '100%';
@@ -23,7 +22,16 @@
   imageUploadForm.addEventListener('submit', function (evt) {
     window.backend.isUploadData(new FormData(imageUploadForm), function (response) {
       window.common.imageUploadElement.classList.add('hidden');
+      uploadFile.value = '';
       clearFormInputs();
+    }, function () {
+      var errorMessage = document.querySelector('.img-upload__message--error');
+      var errorLink = document.querySelector('.error__link');
+      errorMessage.classList.remove('hidden');
+      errorMessage.style.zIndex = '3';
+      errorLink.addEventListener('click', function () {
+        errorMessage.classList.add('hidden');
+      });
     });
     evt.preventDefault();
   });
@@ -37,6 +45,7 @@
 
   var onUploadCancelClick = function () {
     window.common.imageUploadElement.classList.add('hidden');
+    uploadFile.value = '';
     clearFormInputs();
   };
 
