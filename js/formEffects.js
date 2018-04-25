@@ -22,16 +22,18 @@
     if (effectId === 'none') {
       window.common.imageUploadImg.removeAttribute('class');
       imageSlider.classList.add('hidden');
+      window.common.imageUploadImg.style = '';
+      window.resize.resizeControlValue.value = '100%';
     } else {
       setEffect(effectId);
+      scalePin.style.left = '100%';
+      scaleLevel.style.width = '100%';
+      setSaturation(100);
     }
   };
-  imageUploadEffects.addEventListener('click', onEffectsRadioClick);
 
   var setSaturation = function (position) {
-    var filterName = window.common.imageUploadImg.classList.value;
-    filterName = filterName.split('--');
-    filterName = filterName[1];
+    var filterName = window.common.imageUploadImg.classList.value.split('--')[1];
 
     var result;
 
@@ -102,4 +104,13 @@
   };
 
   scalePin.addEventListener('mousedown', onScalePinMouseDown);
+
+  window.formEffects = {
+    addListenersFormEffects: function () {
+      imageUploadEffects.addEventListener('click', onEffectsRadioClick);
+    },
+    removeListenersFormEffects: function () {
+      imageUploadEffects.removeEventListener('click', onEffectsRadioClick);
+    }
+  };
 })();

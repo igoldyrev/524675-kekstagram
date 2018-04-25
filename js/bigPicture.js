@@ -29,7 +29,7 @@
   window.initBigPicture = function () {
     var pictureLinks = document.querySelectorAll('.picture__link');
     pictureLinks.forEach(function (picture, num) {
-      picture.addEventListener('click', function () {
+      var renderPhoto = function () {
         bigPicture.classList.remove('hidden');
         document.body.classList.add('modal-open');
         document.addEventListener('keydown', onEscKeyPress);
@@ -46,12 +46,20 @@
         for (var k = 0; (k < window.photos[num].comments.length) && (k < COUNT_COMMENTS); k++) {
           commentsContainer.appendChild(renderComments(k, num));
         }
-      });
+      };
+      picture.addEventListener('click', renderPhoto);
+      picture.addEventListener('keydown', onEnterKeyPress);
     });
   };
   var onBigPictureCloseClick = function () {
     bigPicture.classList.add('hidden');
     document.body.classList.remove('modal-open');
+    document.removeEventListener('keydown', onEscKeyPress);
+    document.removeEventListener('keydown', onEnterKeyPress);
+  };
+
+  var onEnterKeyPress = function (evt) {
+    window.common.isEnterEvent(evt, window.initBigPicture);
   };
 
   var onEscKeyPress = function (evt) {
