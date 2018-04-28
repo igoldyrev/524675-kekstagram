@@ -51,25 +51,39 @@
       window.initBigPicture();
     };
 
-    filterPopular.addEventListener('click', sortPopular);
-
-
-    filterRecommended.addEventListener('click', function () {
+    var sortRecommended = function () {
       clearFilterButtonsClasses();
       filterRecommended.classList.add('img-filters__button--active');
       window.photos = photosCopy;
       renderFilter(photosCopy);
       window.initBigPicture();
-    });
+    };
 
-    filterRandom.addEventListener('click', function () {
+    var sortRandom = function () {
       clearFilterButtonsClasses();
       filterRandom.classList.add('img-filters__button--active');
-    });
+    };
 
-    filterDiscussed.addEventListener('click', function () {
+    var sortDiscussed = function () {
       clearFilterButtonsClasses();
       filterDiscussed.classList.add('img-filters__button--active');
-    });
+      var sortComents = window.photos.slice().sort(function (first, second) {
+        if (first.comments.length > second.comments.length) {
+          return 1;
+        } else if (first.comments.length < second.comments.length) {
+          return -1;
+        } else {
+          return 0;
+        }
+      }).reverse();
+      window.photos = sortComents;
+      renderFilter(sortComents);
+      window.initBigPicture();
+    };
+
+    filterPopular.addEventListener('click', sortPopular);
+    filterRecommended.addEventListener('click', sortRecommended);
+    filterRandom.addEventListener('click', sortRandom);
+    filterDiscussed.addEventListener('click', sortDiscussed);
   };
 })();
