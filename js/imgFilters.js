@@ -10,6 +10,8 @@
     var filterRandom = document.querySelector('#filter-random');
     var filterDiscussed = document.querySelector('#filter-discussed');
 
+    var photosCopy = window.photos.slice();
+
     var clearFilterButtonsClasses = function () {
       imageFilterButton.forEach(function (button) {
         button.classList.remove('img-filters__button--active');
@@ -55,6 +57,9 @@
     filterRecommended.addEventListener('click', function () {
       clearFilterButtonsClasses();
       filterRecommended.classList.add('img-filters__button--active');
+      window.photos = photosCopy;
+      renderFilter(photosCopy);
+      window.initBigPicture();
     });
 
     filterRandom.addEventListener('click', function () {
