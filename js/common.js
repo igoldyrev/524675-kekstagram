@@ -19,6 +19,7 @@ window.common = (function () {
       return Math.round(Math.random() * (max - min) + min);
     },
     imageUploadElement: document.querySelector('.img-upload__overlay'),
-    imageUploadImg: document.querySelector('.img-upload__preview img')
+    imageUploadImg: document.querySelector('.img-upload__preview img'),
+    picturesList: document.querySelector('.pictures')
   };
 })();
