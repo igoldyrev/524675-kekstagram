@@ -47,7 +47,7 @@
         }
       }).reverse();
       window.photos = sortLikes;
-      renderFilter(sortLikes);
+      window.common.isDebounce(renderFilter(sortLikes));
       window.initBigPicture();
     };
 
@@ -55,16 +55,16 @@
       clearFilterButtonsClasses();
       filterRecommended.classList.add('img-filters__button--active');
       window.photos = photosCopy;
-      renderFilter(photosCopy);
+      window.common.isDebounce(renderFilter(photosCopy));
       window.initBigPicture();
     };
 
     var sortRandom = function () {
       clearFilterButtonsClasses();
       filterRandom.classList.add('img-filters__button--active');
-      var sortRandom = window.photos.slice().sort(window.common.isGetRandom);
-      window.photos = sortRandom;
-      renderFilter(sortRandom);
+      var sortRand = window.photos.slice().sort(window.common.isGetRandom);
+      window.photos = sortRand;
+      window.common.isDebounce(renderFilter(sortRand));
       window.initBigPicture();
     };
 
@@ -81,7 +81,7 @@
         }
       }).reverse();
       window.photos = sortComents;
-      renderFilter(sortComents);
+      window.common.isDebounce(renderFilter(sortComents));
       window.initBigPicture();
     };
 
