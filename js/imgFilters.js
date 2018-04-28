@@ -62,6 +62,10 @@
     var sortRandom = function () {
       clearFilterButtonsClasses();
       filterRandom.classList.add('img-filters__button--active');
+      var sortRandom = window.photos.slice().sort(window.common.isGetRandom);
+      window.photos = sortRandom;
+      renderFilter(sortRandom);
+      window.initBigPicture();
     };
 
     var sortDiscussed = function () {
