@@ -3,6 +3,8 @@
 window.common = (function () {
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
+  var DEBOUNCE_INTERVAL = 300;
+  var lastTimeout;
 
   return {
     isEscEvent: function (evt, action) {
@@ -18,7 +20,15 @@ window.common = (function () {
     isGetRandom: function (min, max) {
       return Math.round(Math.random() * (max - min) + min);
     },
+    isDebounce: function (func) {
+
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(func, DEBOUNCE_INTERVAL);
+    },
     imageUploadElement: document.querySelector('.img-upload__overlay'),
-    imageUploadImg: document.querySelector('.img-upload__preview img')
+    imageUploadImg: document.querySelector('.img-upload__preview img'),
+    picturesList: document.querySelector('.pictures')
   };
 })();
