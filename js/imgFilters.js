@@ -44,13 +44,7 @@
 
       var sortElemPopular = function () {
         var sortLikes = window.photos.slice().sort(function (first, second) {
-          if (first.likes > second.likes) {
-            return 1;
-          } else if (first.likes < second.likes) {
-            return -1;
-          } else {
-            return 0;
-          }
+          return first.likes - second.likes;
         }).reverse();
         window.photos = sortLikes;
         renderFilter(sortLikes);
