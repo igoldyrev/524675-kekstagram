@@ -32,11 +32,12 @@
   var onInputTagValidation = function () {
     var input = document.querySelector('.text__hashtags');
     var errorList = validateTags(input.value);
-    if (errorList.length > 0) {
+    if (input.value === '') {
+      errorList.length = 0;
+      input.setCustomValidity('');
+    } else if (errorList.length > 0) {
       input.setCustomValidity(errorList.toString());
       input.style.border = '2px solid red';
-    } else {
-      input.setCustomValidity('');
     }
   };
 
