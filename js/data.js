@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var countPhotos = 25;
+  var COUNT_PHOTOS = 25;
   var photoTemplate = document.querySelector('#picture').content.querySelector('.picture__link');
 
   window.renderPhoto = function (array) {
@@ -15,10 +15,11 @@
   var onSuccessLoad = function (photos) {
     window.photos = photos;
     var fragment = document.createDocumentFragment();
-    for (var j = 0; j < countPhotos; j++) {
+    for (var j = 0; j < COUNT_PHOTOS; j++) {
       fragment.appendChild(window.renderPhoto(photos[j]));
     }
     window.common.picturesList.appendChild(fragment);
+    window.imgFilters.initImgFilters();
     window.initBigPicture();
   };
 
