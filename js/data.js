@@ -19,6 +19,7 @@
       fragment.appendChild(window.renderPhoto(photos[j]));
     }
     window.common.picturesList.appendChild(fragment);
+    window.imgFilters.initImgFilters();
     window.initBigPicture();
   };
 
