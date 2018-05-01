@@ -1,9 +1,9 @@
 'use strict';
 (function () {
+  var COUNT_COMMENTS = 2;
   var bigPicture = document.querySelector('.big-picture');
   var bigPictureClose = bigPicture.querySelector('#picture-cancel');
   var commentsContainer = document.querySelector('.social__comments');
-  var COUNT_COMMENTS = 2;
 
   document.querySelector('.social__comment-count').classList.add('visually-hidden');
   document.querySelector('.social__comment-loadmore').classList.add('visually-hidden');
