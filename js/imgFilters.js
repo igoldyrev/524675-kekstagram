@@ -16,6 +16,11 @@
     });
   };
 
+  var addFilterButtonClass = function (button) {
+    clearFilterButtonsClasses();
+    button.classList.add('img-filters__button--active');
+  };
+
   var clearChilds = function () {
     var pictureLinks = document.querySelectorAll('.picture__link');
     pictureLinks.forEach(function (link) {
@@ -32,13 +37,8 @@
     window.common.picturesList.appendChild(fragment);
   };
 
-  var debounceSort = function (f) {
-    window.common.isDebounce(f);
-  };
-
   var sortPopular = function () {
-    clearFilterButtonsClasses();
-    filterPopular.classList.add('img-filters__button--active');
+    addFilterButtonClass(filterPopular);
 
     var sortElemPopular = function () {
       var sortLikes = window.photos.slice().sort(function (first, second) {
@@ -46,47 +46,47 @@
       }).reverse();
       window.photos = sortLikes;
       renderFilter(sortLikes);
+      window.initBigPicture();
     };
-    debounceSort(sortElemPopular);
-    window.initBigPicture();
+    window.common.isDebounce(sortElemPopular);
   };
 
   var sortRecommended = function () {
-    clearFilterButtonsClasses();
-    filterRecommended.classList.add('img-filters__button--active');
+    addFilterButtonClass(filterRecommended);
 
     var sortElemRecommend = function () {
       window.photos = photosCopy;
       window.common.isDebounce(renderFilter(photosCopy));
+      window.initBigPicture();
     };
-    debounceSort(sortElemRecommend);
-    window.initBigPicture();
+    window.common.isDebounce(sortElemRecommend);
   };
 
   var sortRandom = function () {
-    clearFilterButtonsClasses();
-    filterRandom.classList.add('img-filters__button--active');
+    addFilterButtonClass(filterRandom);
+
     var sortElemRandom = function () {
       var sortRand = window.photos.slice().sort(window.common.isGetRandom);
       window.photos = sortRand;
       window.common.isDebounce(renderFilter(sortRand));
+      window.initBigPicture();
     };
-    debounceSort(sortElemRandom);
-    window.initBigPicture();
+    window.common.isDebounce(sortElemRandom);
+
   };
 
   var sortDiscussed = function () {
-    clearFilterButtonsClasses();
-    filterDiscussed.classList.add('img-filters__button--active');
+    addFilterButtonClass(filterDiscussed);
+
     var sortElemDiscussed = function () {
       var sortComents = window.photos.slice().sort(function (first, second) {
         return first.comments.length - second.comments.length;
       }).reverse();
       window.photos = sortComents;
       renderFilter(sortComents);
+      window.initBigPicture();
     };
-    debounceSort(sortElemDiscussed);
-    window.initBigPicture();
+    window.common.isDebounce(sortElemDiscussed);
   };
 
   var initImgFilters = function () {
