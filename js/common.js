@@ -20,8 +20,8 @@
       action();
     }
   };
-  var isGetRandom = function (min, max) {
-    return Math.round(Math.random() * (max - min) + min);
+  var isGetRandom = function () {
+    return Math.random() - 0.5;
   };
   var isDebounce = function (func) {
     if (lastTimeout) {
