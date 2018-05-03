@@ -66,7 +66,9 @@
     addFilterButtonClass(filterRandom);
 
     var sortElemRandom = function () {
-      var sortRand = window.photos.slice().sort(window.common.isGetRandom);
+      var sortRand = window.photos.slice().sort(function () {
+        return Math.random() - 0.5;
+      });
       window.photos = sortRand;
       window.common.isDebounce(renderFilter(sortRand));
       window.initBigPicture();
